@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SlantedView.MainPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="ColumnSpacing" Value="0"/>
+            <Setter Property="RowSpacing" Value="0"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+
+        <DataTemplate x:Key="ImageDatatemplate">
+            <Image
+                Source="{Binding .}"
+                
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                WidthRequest="137"
+                HeightRequest="137">
+                <Image.Clip>
+                    <RoundRectangleGeometry
+                        Rect="0,0,137,137"
+                        CornerRadius="16"/>
+                </Image.Clip>
+            </Image>
+        </DataTemplate>
+
+        <Style TargetType="CollectionView">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="ItemSizingStrategy" Value="MeasureFirstItem"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Never"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Never"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource ImageDatatemplate}"/>
+            <Setter Property="ItemsLayout">
+                <Setter.Value>
+                    <LinearItemsLayout
+                        Orientation="Horizontal"
+                        ItemSpacing="14"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </ContentPage.Resources>
+
+    <Grid
+        IgnoreSafeArea="False"
+        RowDefinitions="590,auto,*,76">
+        
+        <!--Main Grid-->
+        <Grid
+            Grid.Row="0"
+            IgnoreSafeArea="True"
+            RowDefinitions="137,14,137,14,137,14,137">
+            
+            <!-- Coll View 1 -->
+            <CollectionView
+                Grid.Row="0"
+                ItemsSource="{Binding ImageList1}"/>
+
+             <!--Coll View 2--> 
+            <CollectionView
+                Grid.Row="2"
+                ItemsSource="{Binding ImageList2}"/>
+
+             <!--Coll View 3--> 
+            <CollectionView
+                Grid.Row="4"
+                ItemsSource="{Binding ImageList3}"/>
+
+             <!--Coll View 4--> 
+            <CollectionView
+                Grid.Row="6"
+                ItemsSource="{Binding ImageList4}"/>
+        </Grid>
+            
+        
+        <!--Header-->
+        <Label
+            Grid.Row="1"
+            Text="Discover NET Collections"
+            FontFamily="BoldFont"
+            TextColor="#151515"
+            HorizontalTextAlignment="Center"
+            HorizontalOptions="Center"
+            FontSize="28"
+            Margin="48,12,48,0"
+            LineHeight="1.2"/>
+        
+        <!--Info-->
+        <Label
+            Grid.Row="2"
+            Text="Explore top collections of NFT and buy and sell your NFT as well"
+            FontFamily="RegularFont"
+            TextColor="#888888"
+            HorizontalTextAlignment="Center"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            FontSize="18"
+            Margin="32,12,32,0"
+            LineHeight="1.2"/>
+        
+        <!--Button-->
+        <Button
+            Grid.Row="3"
+            Text="Start Exploring"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Margin="32,0,32,24"
+            FontSize="18"
+            TextColor="White"
+            FontFamily="BoldFont"
+            BackgroundColor="#151515"
+            BorderWidth="0"
+            CornerRadius="26"/>
+    </Grid>
+    
+</ContentPage>
