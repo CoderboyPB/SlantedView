@@ -9,18 +9,44 @@ public partial class MainPage : ContentPage
 
     private List<string> _allImages;
 
+    private Random _random = new();
+
     public MainPage()
 	{
 		InitializeComponent();
 
         GenerateData();
-        ImageList1 = _allImages;
-        ImageList2 = _allImages;
-        ImageList3 = _allImages;
-        ImageList4 = _allImages;
+        ImageList1 = Randomize(_allImages);
+        ImageList2 = Randomize(_allImages);
+        ImageList3 = Randomize(_allImages);
+        ImageList4 = Randomize(_allImages);
 
         BindingContext = this;
+
+        var timer = Application.Current.Dispatcher.CreateTimer();
+        timer.Interval = TimeSpan.FromSeconds(0.1);
+        timer.Tick += Timer_Tick;
+        timer.Start();
 	}
+
+    private int direction = 1;
+    private int pos = 0;
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        if(pos <= 170)
+        {
+            grid1.TranslationX = direction * pos++;
+            grid2.TranslationX = -direction * pos++;
+            grid3.TranslationX = direction * pos++;
+            grid4.TranslationX = -direction * pos++;
+        }
+        else
+        {
+            pos = 0;
+            direction *= -1;
+        } 
+    }
 
     private void GenerateData()
     {
@@ -31,5 +57,7 @@ public partial class MainPage : ContentPage
             _allImages.Add($"img{i.ToString("00")}.jpg");
         }
     }
-}
 
+    public List<T> Randomize<T>(List<T> source) =>
+        source.OrderBy<T, int>((item) => _random.Next()).ToList();
+}

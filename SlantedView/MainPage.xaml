@@ -17,8 +17,9 @@
 
         <DataTemplate x:Key="ImageDatatemplate">
             <Image
+                Margin="0"
                 Source="{Binding .}"
-                
+                Aspect="Fill"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 WidthRequest="137"
@@ -33,7 +34,7 @@
 
         <Style TargetType="CollectionView">
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="ItemSizingStrategy" Value="MeasureFirstItem"/>
+            <!--<Setter Property="ItemSizingStrategy" Value="MeasureFirstItem"/>-->
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
             <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -42,48 +43,87 @@
             <Setter Property="SelectionMode" Value="None"/>
             <Setter Property="ItemTemplate" Value="{StaticResource ImageDatatemplate}"/>
             <Setter Property="ItemsLayout">
-                <Setter.Value>
+                
                     <LinearItemsLayout
                         Orientation="Horizontal"
                         ItemSpacing="14"/>
-                </Setter.Value>
+               
             </Setter>
         </Style>
         
     </ContentPage.Resources>
 
     <Grid
-        IgnoreSafeArea="False"
+        IgnoreSafeArea="True"
         RowDefinitions="590,auto,*,76">
         
         <!--Main Grid-->
         <Grid
             Grid.Row="0"
             IgnoreSafeArea="True"
-            RowDefinitions="137,14,137,14,137,14,137">
+            RowDefinitions="137,14,137,14,137,14,137"
+            Rotation="-10"
+            Margin="-180,0">
             
             <!-- Coll View 1 -->
             <CollectionView
                 Grid.Row="0"
+                x:Name="grid1"
                 ItemsSource="{Binding ImageList1}"/>
 
              <!--Coll View 2--> 
             <CollectionView
                 Grid.Row="2"
+                x:Name="grid2"
                 ItemsSource="{Binding ImageList2}"/>
 
              <!--Coll View 3--> 
             <CollectionView
                 Grid.Row="4"
+                x:Name="grid3"
                 ItemsSource="{Binding ImageList3}"/>
 
              <!--Coll View 4--> 
             <CollectionView
                 Grid.Row="6"
+                x:Name="grid4"
                 ItemsSource="{Binding ImageList4}"/>
         </Grid>
-            
-        
+
+        <BoxView
+            HorizontalOptions="Fill"
+            VerticalOptions="Start"
+            HeightRequest="90"
+            Grid.Row="0">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#ff000000" Offset="0"/>
+                    <GradientStop Color="#00ffffff" Offset="1"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <BoxView
+            HorizontalOptions="Fill"
+            VerticalOptions="End"
+            HeightRequest="90"
+            Grid.Row="0">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#00ffffff" Offset="0"/>
+                    <GradientStop Color="#ffffffff" Offset="1"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Backgroun-->
+        <BoxView
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Grid.RowSpan="3"
+            Grid.Row="1"
+            BackgroundColor="White"/>
+
         <!--Header-->
         <Label
             Grid.Row="1"
@@ -111,6 +151,7 @@
         
         <!--Button-->
         <Button
+            x:Name="button"
             Grid.Row="3"
             Text="Start Exploring"
             HorizontalOptions="Fill"
