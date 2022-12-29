@@ -1,4 +1,7 @@
-﻿namespace SlantedView;
+﻿using Microsoft.UI.Xaml.Controls.AnimatedVisuals;
+using Windows.Security.Cryptography.Core;
+
+namespace SlantedView;
 
 public partial class MainPage : ContentPage
 {
@@ -10,6 +13,8 @@ public partial class MainPage : ContentPage
     private List<string> _allImages;
 
     private Random _random = new();
+
+    private bool animate = false;
 
     public MainPage()
 	{
@@ -23,31 +28,41 @@ public partial class MainPage : ContentPage
 
         BindingContext = this;
 
-        var timer = Application.Current.Dispatcher.CreateTimer();
-        timer.Interval = TimeSpan.FromSeconds(0.1);
-        timer.Tick += Timer_Tick;
-        timer.Start();
-	}
+        grid1.Loaded += Grid_LoadedAsync_left;
+        grid2.Loaded += Grid_LoadedAsync_right;
+        grid3.Loaded += Grid_LoadedAsync_left;
+        grid4.Loaded += Grid_LoadedAsync_right;
 
-    private int direction = 1;
-    private int pos = 0;
-
-    private void Timer_Tick(object sender, EventArgs e)
-    {
-        if(pos <= 170)
-        {
-            grid1.TranslationX = direction * pos++;
-            grid2.TranslationX = -direction * pos++;
-            grid3.TranslationX = direction * pos++;
-            grid4.TranslationX = -direction * pos++;
-        }
-        else
-        {
-            pos = 0;
-            direction *= -1;
-        } 
+        grid1.Unloaded += (s,e) => animate = false;
+        grid2.Unloaded += (s, e) => animate = false;
+        grid3.Unloaded += (s, e) => animate = false;
+        grid4.Unloaded += (s, e) => animate = false;
     }
 
+    private async void Grid_LoadedAsync_left(object sender, EventArgs e)
+    {
+        animate = true;
+        await AnimateAsync((CollectionView)sender, 1);
+    }
+
+    private async void Grid_LoadedAsync_right(object sender, EventArgs e)
+    {
+        animate = true;
+        await AnimateAsync((CollectionView)sender, -1);
+    }
+
+    private async Task AnimateAsync(CollectionView grid, int direction)
+    {
+        
+        if(animate)
+        {
+            await grid.TranslateTo(-190*direction, 0, 2500);
+            await grid.TranslateTo(190*direction, 0, 5000);
+            await grid.TranslateTo(0, 0, 2500);
+
+            await AnimateAsync(grid, direction);
+        }
+    }
     private void GenerateData()
     {
         _allImages = new();
