@@ -63,7 +63,7 @@
             IgnoreSafeArea="True"
             RowDefinitions="137,14,137,14,137,14,137"
             Rotation="-10"
-            Margin="-180,0">
+            Margin="-1000,0">
             
             <!-- Coll View 1 -->
             <CollectionView

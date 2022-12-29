@@ -1,7 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls.AnimatedVisuals;
-using Windows.Security.Cryptography.Core;
-
-namespace SlantedView;
+﻿namespace SlantedView;
 
 public partial class MainPage : ContentPage
 {
@@ -53,16 +50,16 @@ public partial class MainPage : ContentPage
 
     private async Task AnimateAsync(CollectionView grid, int direction)
     {
-        
         if(animate)
         {
-            await grid.TranslateTo(-190*direction, 0, 2500);
-            await grid.TranslateTo(190*direction, 0, 5000);
-            await grid.TranslateTo(0, 0, 2500);
+            await grid.TranslateTo(-1000*direction, 0, 12000);
+            await grid.TranslateTo(1000*direction, 0, 24000);
+            await grid.TranslateTo(0, 0, 12000);
 
             await AnimateAsync(grid, direction);
         }
     }
+
     private void GenerateData()
     {
         _allImages = new();
