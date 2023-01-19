@@ -1,5 +1,4 @@
 ﻿namespace SlantedView;
-
 public partial class MainPage : ContentPage
 {
 	public List<string> ImageList1 { get; set; }
@@ -30,34 +29,44 @@ public partial class MainPage : ContentPage
         grid3.Loaded += Grid_LoadedAsync_left;
         grid4.Loaded += Grid_LoadedAsync_right;
 
-        grid1.Unloaded += (s,e) => animate = false;
+        grid1.Unloaded += (s, e) => animate = false;
         grid2.Unloaded += (s, e) => animate = false;
         grid3.Unloaded += (s, e) => animate = false;
         grid4.Unloaded += (s, e) => animate = false;
     }
 
-    private async void Grid_LoadedAsync_left(object sender, EventArgs e)
+    private void Grid_LoadedAsync_left(object sender, EventArgs e)
     {
         animate = true;
-        await AnimateAsync((CollectionView)sender, 1);
+        AnimateAsync((CollectionView)sender, 1);
     }
 
-    private async void Grid_LoadedAsync_right(object sender, EventArgs e)
+    private void Grid_LoadedAsync_right(object sender, EventArgs e)
     {
         animate = true;
-        await AnimateAsync((CollectionView)sender, -1);
+        AnimateAsync((CollectionView)sender, -1);
     }
 
-    private async Task AnimateAsync(CollectionView grid, int direction)
+    private void AnimateAsync(CollectionView grid, int direction)
     {
-        if(animate)
-        {
-            await grid.TranslateTo(-1000*direction, 0, 12000);
-            await grid.TranslateTo(1000*direction, 0, 24000);
-            await grid.TranslateTo(0, 0, 12000);
+        //if(animate)
+        //{
+        //    await grid.TranslateTo(-1000*direction, 0, 12000);
+        //    await grid.TranslateTo(1000*direction, 0, 24000);
+        //    await grid.TranslateTo(0, 0, 12000);
 
-            await AnimateAsync(grid, direction);
-        }
+        //    await AnimateAsync(grid, direction);
+        //}
+
+        var parentAnimation = new Animation();
+
+        var animation_ab = new Animation(v => grid.TranslationX = v, -1000*direction, 1000*direction) ;
+        var animation_ba = new Animation(v => grid.TranslationX = v, 1000 * direction, -1000*direction);
+       
+        parentAnimation.Add(0, 0.5, animation_ab);
+        parentAnimation.Add(0.5, 1, animation_ba);
+
+        parentAnimation.Commit(this, "Animation", length: 20000, repeat: () => true);
     }
 
     private void GenerateData()

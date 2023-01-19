@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SlantedView.Flexy"
+             Title="Flexy">
+
+    <!--<ScrollView>
+        <FlexLayout
+            x:Name="flexlayout"
+            JustifyContent="SpaceAround"
+            Wrap="Wrap"
+            Direction="Row"
+            AlignItems="Start"
+            />
+    </ScrollView>-->
+
+    <!--<AbsoluteLayout>
+        <BoxView Color="Pink" AbsoluteLayout.LayoutBounds="0.5,0,100,25" AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <BoxView Color="Green" AbsoluteLayout.LayoutBounds="0,0.5,25,100" AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <BoxView Color="Red" AbsoluteLayout.LayoutBounds="1,0.5,25,100" AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <BoxView Color="Blue" AbsoluteLayout.LayoutBounds="0.5,1,100,25" AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <Label Text="Centered text" AbsoluteLayout.LayoutBounds="0.5,0.5,110,25" AbsoluteLayout.LayoutFlags="PositionProportional" />
+    </AbsoluteLayout>-->
+
+    <FlexLayout Direction="Column" JustifyContent="SpaceEvenly">
+        <Label Text="Give me your name:" />
+        <Button BackgroundColor="Pink" Text="Enter"/>
+    </FlexLayout>
+</ContentPage>
